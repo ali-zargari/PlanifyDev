@@ -1,10 +1,10 @@
+
+package com.cs133.planify;
+import java.util.ArrayList;
 public class Account {
-    ArrayList<Week> weeks= new ArrayList<>()
+    ArrayList<Calendar> calendars= new ArrayList<>();
     private String password;
     public String name;
-    public progress(){;
-        weeks.remove(0);
-        weeks.add(new Week);
-    }
+    public Calendar MainCalendar;
 
 }

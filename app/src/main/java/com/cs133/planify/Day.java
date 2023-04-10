@@ -1,40 +1,42 @@
+package com.cs133.planify;
+import java.util.ArrayList;
 public class Day {
     int month;
     int day;
     int year;
-    ArrayList<Event> hours= new ArrayList <Event>();
-    ArrayList<Event> total= new ArrayList<Event>();
+    ArrayList<EventClass> hours= new ArrayList <EventClass>();
+    ArrayList<EventClass> total= new ArrayList<EventClass>();
 
-    public day(int month, int day, int year){
+    public Day(int month, int day, int year){
         this.month=month;
         this.day=day;
-        this.year=yaer;
+        this.year=year;
         initialize();
     }
 
     //creates an empty day with no scheduled events
-    private initialize(){
+    private void initialize(){
         for(int i=0;i<24; i++){
             hours.add(null);
         }
     }
-    public boolean addEvent(Event newEvent){
-        int start= newEvent.getStart;
-        int end = newEvent.getEnd;
+    public boolean addEvent(EventClass newEvent){
+        int start= newEvent.getStart();
+        int end = newEvent.getEnd();
         //iterates once to check to see if all the spaces from start to end are empty
-        for(int i=start; i= end; i++){
-            if((hours.get(time)!=null){
+        for(int i=start; i==end; i++){
+            if((hours.get(i)!= null)){
                 return false;
             }
         }
         // checks if theres any events with same name
-        for(x in total){
-            if(x.getName== newEvent.getName){
+        for(int i=0; i<total.size(); i++){
+            if(total.get(i).getName()== newEvent.getName()){
                 return false;
             }
         }
         //iterates again to fill up all the events
-        for(int i=start; i= end; i++){
+        for(int i=start; i==end; i++){
             hours.set(i,newEvent);
         }
         //add event to total
@@ -42,12 +44,12 @@ public class Day {
         return true;
     }
     //removes from all hours and the event
-    public returnEvent(Event removedEvent){
-        int start= removedEvent.getStart;
-        int end = removedEvent.getEnd;
-        for(int i=start; i= end; i++){
+    public void returnEvent(EventClass removedEvent){
+        int start= removedEvent.getStart();
+        int end = removedEvent.getEnd();
+        for(int i=start; i==end; i++){
             hours.set(i,null);
         }
-        totalEvent.remove(removedEvent);
+        total.remove(removedEvent);
     }
 }

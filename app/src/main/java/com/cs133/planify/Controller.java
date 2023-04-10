@@ -1,21 +1,26 @@
+package com.cs133.planify;
+import java.util.ArrayList;
 public class Controller {
     Account ThisAccount;
-    public setAccount(Account newAcc){
-        this.ThisAccount= newacc;
+    public void setAccount(Account newAcc){
+        this.ThisAccount= newAcc;
     }
-    public event searchEvent(){
-
+    public EventClass searchEvent(){
+        return null;
     }
-    public day searchDay(){
+    public Day searchDay(){
+        return null;
 
     }
     public boolean addEvent(){
+        return false;
 
     }
     public boolean addWeek(){
-
+       return false;
     }
-    public ArrayList<Event> getAllEvents(){
+    public ArrayList<EventClass> getAllEvents(){
+        return null;
 
     }
 }
