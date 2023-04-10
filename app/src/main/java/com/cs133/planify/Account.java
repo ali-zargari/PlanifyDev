@@ -6,5 +6,12 @@ public class Account {
     private String password;
     public String name;
     public Calendar MainCalendar;
+    public String getPassword() {
+        return password;
+    }
+    public String getName(){
+        return this.name;
+    }
+
 
 }
