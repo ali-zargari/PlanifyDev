@@ -1,10 +1,10 @@
 package com.cs133.planify;
 
 import java.util.ArrayList;
-public class Calendar{
+public class CalendarData {
     ArrayList<Week> weeks;
     int weeknumber=5;
-    public Calendar(String name){
+    public CalendarData(String name){
          weeks = new ArrayList<>();
          weeks.add(new Week(1));
          weeks.add(new Week(2));
