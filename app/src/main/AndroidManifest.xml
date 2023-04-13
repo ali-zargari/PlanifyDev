@@ -15,10 +15,14 @@
             android:name=".frontend.main.Main"
             android:exported="false"
             android:label="@string/title_activity_main" />
+
         <activity
             android:name=".frontend.login.Login"
             android:exported="false"
             android:label="@string/title_activity_login" />
+
+        <activity android:name=".frontend.register.Register" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
