@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:985333789408:android:4ea3ecd6ded41603c79685",
         "android_client_info": {
-          "package_name": "com.cs133"
+          "package_name": "com.cs133.planify"
         }
       },
       "oauth_client": [
