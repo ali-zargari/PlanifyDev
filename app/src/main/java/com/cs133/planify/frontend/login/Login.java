@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cs133.planify.MainActivity;
 import com.cs133.planify.R;
+import com.cs133.planify.frontend.main.Main;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -55,8 +56,9 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            System.out.println("Signed in successfully");
                             // Sign in success, update UI with the signed-in user's information
-                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            Intent intent = new Intent(Login.this, Main.class);
                             startActivity(intent);
                             finish();
                         } else {
