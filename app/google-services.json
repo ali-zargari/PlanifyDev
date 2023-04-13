@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "985333789408",
+    "firebase_url": "https://planify-cf9e3-default-rtdb.firebaseio.com",
+    "project_id": "planify-cf9e3",
+    "storage_bucket": "planify-cf9e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985333789408:android:4ea3ecd6ded41603c79685",
+        "android_client_info": {
+          "package_name": "com.cs133"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985333789408-ijahbi1bdmn1sc3p0sreu5hpgds48dm6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVW3vsv_5mpfvkK1jXqG6s0SMGtI-q1LA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985333789408-ijahbi1bdmn1sc3p0sreu5hpgds48dm6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
