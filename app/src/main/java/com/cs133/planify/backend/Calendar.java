@@ -10,9 +10,19 @@ public class Calendar {
         // Default constructor required for calls to DataSnapshot.getValue(Calendar.class)
     }
 
+    public Calendar(String id, List<Month> months) {
+        this.id = id;
+        this.months = months;
+    }
+
     public Calendar(String id) {
         this.id = id;
         this.months = new ArrayList<>();
+
+        // Add all months to the calendar
+        for (int i = 1; i <= 12; i++) {
+            months.add(new Month(i));
+        }
     }
 
     public String getId() {
