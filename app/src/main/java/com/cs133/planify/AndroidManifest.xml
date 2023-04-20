@@ -14,4 +14,19 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Planify"/>
 
+
+    <activity
+        android:name=".frontend.register.Register"
+        android:label="@string/register_activity_title"
+        android:parentActivityName=".MainActivity">
+
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+
+    </activity>
+    <!-- Add any other activity declarations here -->
+
+
 </manifest>
