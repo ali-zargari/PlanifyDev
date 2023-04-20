@@ -1,19 +1,34 @@
 package com.cs133.planify.backend;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Month {
     private int monthNumber;
+    private int year;
     private List<Day> days;
 
     public Month() {
         // Default constructor required for calls to DataSnapshot.getValue(Month.class)
     }
 
+
+    public Month(int monthNumber, int year) {
+        this.days = Arrays.asList(new Day[Calendar.getDaysInMonth(monthNumber, year)]);
+        this.monthNumber = monthNumber;
+        for(int i = 0; i < days.size(); i++) {
+            days.set(i, new Day(i));
+        }
+    }
+
+
     public Month(int monthNumber) {
         this.monthNumber = monthNumber;
-        this.days = new ArrayList<>();
+        this.days = Arrays.asList(new Day[Calendar.getDaysInMonth(monthNumber, year)]);
+        this.year = 2020;
+        for(int i = 0; i < days.size(); i++) {
+            days.set(i, new Day(i));
+        }
     }
 
     public int getMonthNumber() {
@@ -28,11 +43,15 @@ public class Month {
         return days;
     }
 
-    public void setDays(List<Day> days) {
-        this.days = days;
+    public void setDays(Day[] days) {
+        this.days = Arrays.asList(days);
     }
 
-    public void addDay(Day day) {
-        days.add(day);
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }

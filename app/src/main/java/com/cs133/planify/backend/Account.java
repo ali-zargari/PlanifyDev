@@ -2,10 +2,10 @@
 package com.cs133.planify.backend;
 import java.util.ArrayList;
 public class Account {
-    private ArrayList<Calendar> calendars= new ArrayList<>();
+    private ArrayList<Calendar> sharedCalendars= new ArrayList<Calendar>();
     private String password;
     private String name;
-    private Calendar MainCalendar;
+    private Calendar mainCalendar;
 
 
     public Account(){
@@ -13,12 +13,19 @@ public class Account {
 
 
     }
+
+    public Account(String name, String password, Calendar mainCalendar) {
+        this.name = name;
+        this.password = password;
+        this.mainCalendar = mainCalendar;
+    }
+
     public ArrayList<Calendar> getCalendars() {
-        return calendars;
+        return sharedCalendars;
     }
 
     public void setCalendars(ArrayList<Calendar> calendars) {
-        this.calendars = calendars;
+        this.sharedCalendars = calendars;
     }
 
     public void setPassword(String password) {
@@ -32,11 +39,11 @@ public class Account {
 
 
     public Calendar getMainCalendar() {
-        return MainCalendar;
+        return mainCalendar;
     }
 
     public void setMainCalendar(Calendar mainCalendar) {
-        MainCalendar = mainCalendar;
+        this.mainCalendar = mainCalendar;
     }
 
     public String getPassword() {
@@ -48,11 +55,11 @@ public class Account {
     }
 
     public void addCalendar(Calendar calendar) {
-        calendars.add(calendar);
+        sharedCalendars.add(calendar);
     }
 
     public void removeCalendar(Calendar calendar) {
-        calendars.remove(calendar);
+        sharedCalendars.remove(calendar);
     }
 
 

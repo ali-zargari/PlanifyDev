@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cs133.planify.MainActivity;
 import com.cs133.planify.R;
 import com.cs133.planify.backend.Account;
+import com.cs133.planify.backend.Calendar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class Register extends AppCompatActivity {
@@ -58,10 +60,13 @@ public class Register extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Create new user account
-                                        String userId = mAuth.getCurrentUser().getUid();
+                                        String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
                                         Account userAccount = new Account();
                                         userAccount.setName(email);
                                         userAccount.setPassword(password);
+
+                                        Calendar mainCalendar = new Calendar("mainCalendar");
+                                        userAccount.setMainCalendar(mainCalendar);
 
                                         // Convert userAccount object to a map
                                         Map<String, Object> userMap = new HashMap<>();
