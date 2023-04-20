@@ -6,30 +6,8 @@ public class Controller {
     public void setAccount(Account newAcc){
         this.ThisAccount= newAcc;
     }
-    public boolean CheckPassword(Account account, String guess){
-        if (account.getPassword()== guess) {
-            return true;
-        }
-        return false;
-    }
 
-    public Account SearchAccount(String name){
-        for(int i=0;  i<AccountsList.size();i++){
-            Account searching= (Account) AccountsList.get(i);
-            if(searching.getName()==name ){
-                return searching;
-            }
-        }
-        return null;
-    }
-
-
-
-
-
-
-    
-    public EventClass searchEvent(){
+    public Event searchEvent(){
         return null;
     }
     public Day searchDay(){
@@ -43,7 +21,7 @@ public class Controller {
     public boolean addWeek(){
        return false;
     }
-    public ArrayList<EventClass> getAllEvents(){
+    public ArrayList<Event> getAllEvents(){
         return null;
 
     }
