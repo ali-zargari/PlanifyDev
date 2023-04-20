@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.cs133.planify.ui.login.Login;
+import com.cs133.planify.frontend.login.Login;
+import com.cs133.planify.frontend.register.Register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //open login page
                 Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+
+            }
+        });
+
+        Button register_btn = findViewById(R.id.register_button);
+        System.out.println("register button: " + register_btn);
+        register_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open register page
+                Intent intent = new Intent(MainActivity.this, Register.class);
                 startActivity(intent);
 
             }
