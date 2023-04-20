@@ -12,10 +12,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cs133.planify.MainActivity;
 import com.cs133.planify.R;
+import com.cs133.planify.backend.Account;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Register extends AppCompatActivity {
 
@@ -42,20 +50,51 @@ public class Register extends AppCompatActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(Register.this, "Please enter both email and password.", Toast.LENGTH_SHORT).show();
                 } else {
+
+
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(Register.this, "Registration successful.", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Register.this, MainActivity.class);
-                                        startActivity(intent);
-                                        finish();
+                                        // Create new user account
+                                        String userId = mAuth.getCurrentUser().getUid();
+                                        Account userAccount = new Account();
+                                        userAccount.setName(email);
+                                        userAccount.setPassword(password);
+
+                                        // Convert userAccount object to a map
+                                        Map<String, Object> userMap = new HashMap<>();
+                                        userMap.put("name", userAccount.getName());
+                                        userMap.put("password", userAccount.getPassword());
+                                        userMap.put("calendars", userAccount.getCalendars());
+                                        userMap.put("mainCalendar", userAccount.getMainCalendar());
+
+                                        // Add user data to Firestore database
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        db.collection("users").document(userId)
+                                                .set(userMap)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(Register.this, "Registration successful.", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(Register.this, MainActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(Register.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
                                     } else {
                                         Toast.makeText(Register.this, "Registration failed.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
+
                 }
             }
         });
