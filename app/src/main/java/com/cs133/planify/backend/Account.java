@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Account {
     private ArrayList<Calendar> sharedCalendars= new ArrayList<Calendar>();
+    private String password;
     private String name;
     private Calendar mainCalendar;
 
@@ -46,7 +47,9 @@ public class Account {
         this.sharedCalendars = calendars;
     }
 
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -62,7 +65,9 @@ public class Account {
         this.mainCalendar = mainCalendar;
     }
 
-
+    public String getPassword() {
+        return password;
+    }
 
     public String getName() {
         return name;
