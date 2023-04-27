@@ -19,6 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.FirebaseError;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,18 +36,20 @@ public class Controller {
 
     Account ThisAccount;
     ArrayList AccountsList = new ArrayList<Account>();
+
     public void setAccount(Account newAcc){
         this.ThisAccount= newAcc;
     }
     //intialize controller must be run the first time an account as created, will create a child in database with information on user Account
     public Boolean initalizeDatabase(){
         // uses mAuth to get user ID and creates a new mainCalendar object with ID empty calendar
-        userAcc= new Account(mAuth.getUid(),new Calendar("mainCalendar"));
+        userAcc= new Account("testname",new Calendar("mainCalendar"));
         //intializes database reference
         userDB= FirebaseDatabase.getInstance();
         DBref= userDB.getReference();
         // craetes map and uses it to initialize data locales
         DBref.updateChildren(Account.toMap(userAcc));
+        updateLocal();
         return true;
     }
     public Boolean updateDB(){
@@ -53,10 +58,28 @@ public class Controller {
         return true;
     }
 
-    public void updateLocal(){
+    public void updateLocal() {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                Calendar mainCalendar = dataSnapshot.getValue(Calendar.class);
+                // ..
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                System.out.println("grabbing data failed");
+            }
+        };
+        DBref.addValueEventListener(postListener);
     }
 
+
 }
+
+
+
 
 

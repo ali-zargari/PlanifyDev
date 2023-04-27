@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cs133.planify.MainActivity;
 import com.cs133.planify.R;
+import com.cs133.planify.backend.Controller;
 import com.cs133.planify.frontend.main.Main;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,6 +58,7 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             System.out.println("Signed in successfully");
                             // Sign in success, update UI with the signed-in user's information
+                            Controller mController= new Controller();
                             Intent intent = new Intent(Login.this, Main.class);
                             startActivity(intent);
                             finish();
