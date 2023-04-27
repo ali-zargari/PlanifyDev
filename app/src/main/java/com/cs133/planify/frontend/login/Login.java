@@ -59,6 +59,7 @@ public class Login extends AppCompatActivity {
                             System.out.println("Signed in successfully");
                             // Sign in success, update UI with the signed-in user's information
                             Controller mController= new Controller();
+                            mController.initalizeDatabase();
                             Intent intent = new Intent(Login.this, Main.class);
                             startActivity(intent);
                             finish();
