@@ -14,6 +14,7 @@ import com.cs133.planify.MainActivity;
 import com.cs133.planify.R;
 import com.cs133.planify.backend.Account;
 import com.cs133.planify.backend.Calendar;
+import com.cs133.planify.backend.Controller;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -67,6 +68,9 @@ public class Register extends AppCompatActivity {
 
                                         Calendar mainCalendar = new Calendar("mainCalendar");
                                         userAccount.setMainCalendar(mainCalendar);
+
+                                        Controller mController= new Controller(email);
+                                        mController.initalizeDatabase();
 
                                         // Convert userAccount object to a map
                                         Map<String, Object> userMap = new HashMap<>();

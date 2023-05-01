@@ -58,8 +58,9 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             System.out.println("Signed in successfully");
                             // Sign in success, update UI with the signed-in user's information
-                            Controller mController= new Controller();
-                            mController.initalizeDatabase();
+                            System.out.println(email);
+                            Controller mController= new Controller(email);
+                            mController.loadDatabase();
                             Intent intent = new Intent(Login.this, Main.class);
                             startActivity(intent);
                             finish();

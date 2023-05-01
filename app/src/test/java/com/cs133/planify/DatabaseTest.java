@@ -12,7 +12,6 @@ public class DatabaseTest {
     private FirebaseAuth mauth =FirebaseAuth.getInstance();
 
 
-    public Controller TestController = new Controller();
 
     public boolean initializeTestLogin(){
         mauth.signInWithEmailAndPassword(TestEmail, TestPassword);
