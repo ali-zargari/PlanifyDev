@@ -67,7 +67,7 @@ public class Controller {
         DBref.updateChildren(Account.calendartoMap(userAcc));
         updateLocal();
 
-        share( new Calendar("test shared calendar"), "test7@gmail.com");
+       // for testing: share( new Calendar("test shared calendar"), "test7@gmail.com");
         return true;
     }
     // initializes the controller and connects to the database and is to be run every time that is not the first time
