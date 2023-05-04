@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Account {
-    private ArrayList<Calendar> sharedCalendars= new ArrayList<Calendar>();
+    public ArrayList<Calendar> sharedCalendars= new ArrayList<Calendar>();
     private String password;
     private String name;
     private Calendar mainCalendar;
@@ -23,14 +23,24 @@ public class Account {
     public Account(String name, Calendar mainCalendar) {
         this.name = name;
         this.mainCalendar = mainCalendar;
+        sharedCalendars= new ArrayList<>();
+        sharedCalendars.add(new Calendar("ExampleCalendar"));
+
     }
 
     public static Map<String, Object> toMap(Account thisAccount) {
         Map<String, Object> result = new HashMap<>();
         result.put("mainCalendar", thisAccount.getMainCalendar());
-        result.put("calendars", thisAccount.getCalendars());
         result.put("name", thisAccount.getName());
 
+        return result;
+    }
+    public static Map<String, Object> calendartoMap(Account thisAccount){
+        Map<String, Object> result= new HashMap<>();
+        for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
+            Calendar current= thisAccount.getCalendars().get(i);
+            result.put(current.getId(),current);
+        }
         return result;
     }
     //function to be called to update the account calendar values every time a change is made on the database

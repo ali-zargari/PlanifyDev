@@ -63,7 +63,11 @@ public class Controller {
         DBref= userDB.getReference().child("Users").child(emailString);
         // craetes map and uses it to initialize data locales
         DBref.updateChildren(Account.toMap(userAcc));
+        DBref= userDB.getReference().child("Users").child(emailString).child("sharedCalendars");
+        DBref.updateChildren(Account.calendartoMap(userAcc));
         updateLocal();
+
+        share( new Calendar("test shared calendar"), "test7@gmail.com");
         return true;
     }
     // initializes the controller and connects to the database and is to be run every time that is not the first time
@@ -80,7 +84,12 @@ public class Controller {
 
     public Boolean updateDB(){
         //updates all children values in database with current values in the calendar
+        DBref= userDB.getReference().child("Users").child(emailString);
         DBref.updateChildren(Account.toMap(userAcc));
+        DBref= userDB.getReference().child("Users").child(emailString).child("sharedCalendars");
+
+        DBref.updateChildren(Account.calendartoMap(userAcc));
+        updateLocal();
         return true;
     }
 
@@ -89,16 +98,17 @@ public class Controller {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Calendar mainCalendar = dataSnapshot.child("Users").child(emailString).getValue( Calendar.class);
+                Calendar mainCalendar = dataSnapshot.child("Users").child(emailString).child("Calendar").getValue( Calendar.class);
                 userAcc.setMainCalendar(mainCalendar);
 
-                GenericTypeIndicator<List<Calendar>> t = new GenericTypeIndicator<List<Calendar>>() {};
-                List<Calendar> calendars= dataSnapshot.child("Users").child(emailString).getValue( t );
-                if(calendars !=null) {
-                    ArrayList<Calendar> newcalendars = new ArrayList<>(calendars);
-                    userAcc.setCalendars(newcalendars);
+                String name = dataSnapshot.child("Users").child(emailString).child("name").getValue( String.class);
+                userAcc.setMainCalendar(mainCalendar);
+
+                for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("calendars").getChildren()) {
+                    userAcc.addCalendar(child.getValue(Calendar.class));
                 }
-                System.out.println("grabbing data success");
+
+                    System.out.println("grabbing data success");
                 // ..
             }
 
@@ -110,6 +120,18 @@ public class Controller {
         };
         DBref.addValueEventListener(postListener);
     }
+    // takes user email and a seleccted calnedar, will deposit a copy of that  calendar in the user email , if there is a calendar of the same id it will be overwritten
+    public boolean share( Calendar newCalendar, String email){
+        email = email.replace("@","");
+        email = email.replace(".","");
+      FirebaseDatabase mDB= FirebaseDatabase.getInstance();
+      DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("sharedCalendars").child(newCalendar.getId());
+      mRef.setValue(newCalendar);
+      System.out.println("Share Success");
+      return true;
+        }
+
+
 
 
 }
