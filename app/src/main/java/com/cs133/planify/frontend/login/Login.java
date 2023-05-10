@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cs133.planify.MainActivity;
 import com.cs133.planify.R;
+import com.cs133.planify.backend.Controller;
 import com.cs133.planify.frontend.main.Main;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
-    private Button loginButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
 
         emailEditText = findViewById(R.id.editTextTextEmailAddress);
         passwordEditText = findViewById(R.id.editTextTextPassword);
-        loginButton = findViewById(R.id.login_button);
+        Button loginButton = findViewById(R.id.login_button);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +58,9 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             System.out.println("Signed in successfully");
                             // Sign in success, update UI with the signed-in user's information
+                            System.out.println(email);
+                            Controller mController= new Controller(email);
+                            mController.loadDatabase();
                             Intent intent = new Intent(Login.this, Main.class);
                             startActivity(intent);
                             finish();
