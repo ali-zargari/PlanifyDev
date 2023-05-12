@@ -11,6 +11,10 @@ public class Account {
     private String name;
     private Calendar mainCalendar;
 
+    private ArrayList<Task> tasks;
+
+    private ArrayList<Event> events;
+
 
 
 
@@ -19,12 +23,26 @@ public class Account {
 
 
     }
-
+    //calls only on initailize for dataabse when account created
     public Account(String name, Calendar mainCalendar) {
         this.name = name;
         this.mainCalendar = mainCalendar;
         sharedCalendars= new ArrayList<>();
         sharedCalendars.add(new Calendar("ExampleCalendar"));
+        tasks= new ArrayList<>();
+        tasks.add( new Task("example","exampleTask"));
+
+        events= new ArrayList<>();
+        events.add(new Event("example", 0, 0, "example description"));
+
+    }
+    //called whenever app loads
+    public Account(String name){
+        this.name = name;
+        this.mainCalendar = null;
+        sharedCalendars= new ArrayList<>();
+        tasks= new ArrayList<>();
+        events= new ArrayList<>();
 
     }
 
@@ -40,6 +58,30 @@ public class Account {
         for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
             Calendar current= thisAccount.getCalendars().get(i);
             result.put(current.getId(),current);
+        }
+        return result;
+    }
+
+    public static Map<String, Object> tasksToMap(Account thisAccount){
+        Map<String, Object> result= new HashMap<>();
+        if(thisAccount.getTasks().isEmpty()){
+            return result;
+        }
+        for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
+            Task current= thisAccount.getTasks().get(i);
+            result.put(current.IDString,current);
+        }
+        return result;
+    }
+
+    public static Map<String, Object> eventsToMap(Account thisAccount){
+        Map<String, Object> result= new HashMap<>();
+        if(thisAccount.getEvents().isEmpty()){
+            return result;
+        }
+        for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
+            Event current= thisAccount.getEvents().get(i);
+            result.put(current.getIDString(),current);
         }
         return result;
     }
@@ -91,6 +133,66 @@ public class Account {
         sharedCalendars.remove(calendar);
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void deleteTask(String name){
+        for(Task x: tasks){
+            if(x.IDString== name){
+                tasks.remove(x);
+            }
+        }
+    }
+
+    public boolean addTask(Task x) throws Exception{
+        name= x.IDString;
+        for(Task y :tasks){
+            if(y.IDString== name){
+                throw new Exception("task with that name already exists");
+            }
+        }
+        tasks.add(x);
+        return true;
+    }
 
 
+    public Task searchTask(String name){
+        for(Task x: tasks){
+            if(x.IDString== name){
+                return x;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Event> getEvents(){
+        return events;
+    }
+    public boolean addEvent(Event x) throws Exception{
+        String name= x.getIDString();
+        for(Event y: events){
+            if(y.getName()== name){
+                throw new Exception(" event with that name already exists");
+            }
+        }
+        events.add(x);
+        return true;
+    }
+    public Event searchEvent(String name){
+        for(Event x: events){
+            if(x.getIDString()== name){
+                return x;
+            }
+        }
+        return null;
+    }
+
+    public void deleteEvent(String name){
+        for(Event x: events){
+            if(x.getIDString()== name){
+                events.remove(x);
+            }
+        }
+    }
 }
