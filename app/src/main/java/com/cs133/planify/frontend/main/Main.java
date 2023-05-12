@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 
 import com.cs133.planify.R;
+import com.cs133.planify.backend.Controller;
+import com.cs133.planify.backend.Globals;
 import com.cs133.planify.frontend.calendar.Calendar;
 import com.cs133.planify.frontend.login.Login;
 import com.cs133.planify.frontend.plan.PlanFragment;
@@ -20,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Main extends AppCompatActivity {
 
     private NavController navController;
+    Controller mController;
 
     Calendar calendarFragment = new Calendar();
     //SettingsFragment todayFragment = new SettingsFragment();
@@ -27,6 +30,7 @@ public class Main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mController= Globals.getController();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
