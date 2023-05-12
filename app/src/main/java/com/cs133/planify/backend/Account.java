@@ -13,6 +13,8 @@ public class Account {
 
     private ArrayList<Task> tasks;
 
+    private ArrayList<Event> events;
+
 
 
 
@@ -28,6 +30,11 @@ public class Account {
         sharedCalendars= new ArrayList<>();
         sharedCalendars.add(new Calendar("ExampleCalendar"));
         tasks= new ArrayList<>();
+        tasks.add( new Task("example","exampleTask"));
+
+        events= new ArrayList<>();
+        events.add(new Event("example", 0, 0, "example description"));
+
 
 
     }
@@ -50,9 +57,24 @@ public class Account {
 
     public static Map<String, Object> tasksToMap(Account thisAccount){
         Map<String, Object> result= new HashMap<>();
+        if(thisAccount.getTasks().isEmpty()){
+            return result;
+        }
         for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
             Task current= thisAccount.getTasks().get(i);
-            result.put(current.ID,current);
+            result.put(current.IDString,current);
+        }
+        return result;
+    }
+
+    public static Map<String, Object> eventsToMap(Account thisAccount){
+        Map<String, Object> result= new HashMap<>();
+        if(thisAccount.getEvents().isEmpty()){
+            return result;
+        }
+        for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
+            Event current= thisAccount.getEvents().get(i);
+            result.put(current.getName(),current);
         }
         return result;
     }
@@ -108,22 +130,48 @@ public class Account {
         return tasks;
     }
 
-    public void  deleteTask(String name){
+    public void deleteTask(String name){
         for(Task x: tasks){
-            if(x.ID== name){
+            if(x.IDString== name){
                 tasks.remove(x);
             }
         }
     }
+
+    public void addTask(Task x){
+        tasks.add(x);
+    }
+
+
     public Task searchTask(String name){
         for(Task x: tasks){
-            if(x.ID== name){
+            if(x.IDString== name){
                 return x;
             }
         }
         return null;
     }
-    public void addTask(Task x){
-        tasks.add(x);
+
+    public ArrayList<Event> getEvents(){
+        return events;
+    }
+    public void addEvent(Event x){
+        events.add(x);
+    }
+    public Event searchEvent(String name){
+        for(Event x: events){
+            if(x.getName()== name){
+                return x;
+            }
+        }
+        return null;
+    }
+
+    public void deleteEvent(String name){
+        for(Event x: events){
+            if(x.getName()== name){
+                events.remove(x);
+            }
+        }
     }
 }

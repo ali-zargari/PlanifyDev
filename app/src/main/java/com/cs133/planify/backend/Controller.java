@@ -66,6 +66,8 @@ public class Controller {
         DBref.updateChildren(Account.calendartoMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("tasks");
         DBref.updateChildren(Account.tasksToMap(userAcc));
+        DBref= userDB.getReference().child("Users").child(emailString).child("Events");
+        DBref.updateChildren(Account.tasksToMap(userAcc));
         updateLocal();
 
        // for testing: share( new Calendar("test shared calendar"), "test7@gmail.com");
@@ -91,6 +93,8 @@ public class Controller {
         DBref.updateChildren(Account.calendartoMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("tasks");
         DBref.updateChildren(Account.tasksToMap(userAcc));
+        DBref= userDB.getReference().child("Users").child(emailString).child("Events");
+        DBref.updateChildren(Account.tasksToMap(userAcc));
         updateLocal();
         return true;
     }
@@ -110,7 +114,10 @@ public class Controller {
                     userAcc.addCalendar(child.getValue(Calendar.class));
                 }
                 for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("tasks").getChildren()) {
-                    userAcc.addTask(child.getValue(com.cs133.planify.backend.Task.class));
+                    userAcc.addTask(child.getValue(Task.class));
+                }
+                for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("events").getChildren()) {
+                    userAcc.addEvent(child.getValue(Event.class));
                 }
 
                     System.out.println("grabbing data success");
