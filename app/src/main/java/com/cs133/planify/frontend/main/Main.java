@@ -37,9 +37,46 @@ public class Main extends AppCompatActivity {
         //add listeners to the bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        //variable for nav-button item in bottom navigation bar
+        //add listeners to each item in the bottom navigation bar
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            //log view
+            d("Main", "Bottom navigation bar item clicked");
 
+            //get id of the clicked item
+            int id = item.getItemId();
 
+            //Log the id
+            d("Main", "Clicked item id: " + id);
+
+            //switch to the corresponding fragment
+            switch (id) {
+                case R.id.nav_calendar:
+                    //log view
+                    //load calendar fragment
+                    d("Main", "Calendar item clicked");
+
+                    //switch to calendar fragment
+                    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, calendarFragment).commit();
+                    break;
+                case R.id.nav_plan:
+                    //log view
+                    d("Main", "Plan item clicked");
+
+                    //switch to plan fragment
+                    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, planFragment).commit();
+                    break;
+                case R.id.nav_settings:
+                    //log view
+                    d("Main", "Settings item clicked");
+
+                    //switch to settings fragment
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, todayFragment).commit();
+                    break;
+
+            }
+
+            return true;
+        });
 
 
 
