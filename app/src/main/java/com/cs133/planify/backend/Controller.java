@@ -114,10 +114,23 @@ public class Controller {
                     userAcc.addCalendar(child.getValue(Calendar.class));
                 }
                 for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("tasks").getChildren()) {
-                    userAcc.addTask(child.getValue(Task.class));
+                    try{
+                        userAcc.addTask(child.getValue(Task.class));
+                    }
+                    catch( Exception IE)
+                    {
+                        System.out.println(IE.getMessage());
+                    }
                 }
                 for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("events").getChildren()) {
-                    userAcc.addEvent(child.getValue(Event.class));
+
+                    try{
+                        userAcc.addEvent(child.getValue(Event.class));
+                    }
+                    catch( Exception IE)
+                    {
+                        System.out.println(IE.getMessage());
+                    }
                 }
 
                     System.out.println("grabbing data success");
@@ -149,6 +162,16 @@ public class Controller {
         FirebaseDatabase mDB= FirebaseDatabase.getInstance();
         DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("tasks").child(newTask.IDString);
         mRef.setValue(newTask);
+        System.out.println("Share Success");
+        return true;
+    }
+
+    public boolean shareEvent(Event newEvent, String email){
+        email = email.replace("@","");
+        email = email.replace(".","");
+        FirebaseDatabase mDB= FirebaseDatabase.getInstance();
+        DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("tasks").child(newEvent.getIDString());
+        mRef.setValue(newEvent);
         System.out.println("Share Success");
         return true;
     }

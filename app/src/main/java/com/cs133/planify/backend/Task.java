@@ -6,8 +6,11 @@ public class Task {
 
     Boolean Completion;
 
-    public Task(String IDstring, String DescString){
-        IDString= IDstring;
+    String Name;
+
+    public Task(String NameString, String DescString){
+        Name= NameString;
+        IDString=( Name+ ((int) (Math.random() * 100000) + 1));
         Description= DescString;
         Boolean Completion= false;
     }

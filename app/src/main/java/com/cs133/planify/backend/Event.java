@@ -7,11 +7,15 @@ public class Event {
     private int end;
     private boolean status;
 
+    private String IDString;
+
     public Event(String name, int start, int end, String description){
         this.name= name;
         this.start= start;
         this.end= end;
         this.description = description;
+        this.status=false;
+        IDString= (name+start+end+description);
     }
 
     public Event(String name, int start, int end, String description, boolean status){
@@ -20,6 +24,7 @@ public class Event {
         this.end= end;
         this.description = description;
         this.status = status;
+        IDString= (name+start+end+ ((int) (Math.random() * 100000)+1));
     }
 
     public String getName() {
@@ -60,5 +65,8 @@ public class Event {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+    public String getIDString(){
+        return IDString;
     }
 }

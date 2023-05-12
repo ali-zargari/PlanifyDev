@@ -81,7 +81,7 @@ public class Account {
         }
         for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
             Event current= thisAccount.getEvents().get(i);
-            result.put(current.getName(),current);
+            result.put(current.getIDString(),current);
         }
         return result;
     }
@@ -145,8 +145,15 @@ public class Account {
         }
     }
 
-    public void addTask(Task x){
+    public boolean addTask(Task x) throws Exception{
+        name= x.IDString;
+        for(Task y :tasks){
+            if(y.IDString== name){
+                throw new Exception("task with that name already exists");
+            }
+        }
         tasks.add(x);
+        return true;
     }
 
 
@@ -162,12 +169,19 @@ public class Account {
     public ArrayList<Event> getEvents(){
         return events;
     }
-    public void addEvent(Event x){
+    public boolean addEvent(Event x) throws Exception{
+        String name= x.getIDString();
+        for(Event y: events){
+            if(y.getName()== name){
+                throw new Exception(" event with that name already exists");
+            }
+        }
         events.add(x);
+        return true;
     }
     public Event searchEvent(String name){
         for(Event x: events){
-            if(x.getName()== name){
+            if(x.getIDString()== name){
                 return x;
             }
         }
@@ -176,7 +190,7 @@ public class Account {
 
     public void deleteEvent(String name){
         for(Event x: events){
-            if(x.getName()== name){
+            if(x.getIDString()== name){
                 events.remove(x);
             }
         }
