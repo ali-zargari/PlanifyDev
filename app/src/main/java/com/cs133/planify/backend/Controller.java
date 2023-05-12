@@ -27,7 +27,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import java.util.HashMap;
 import java.util.Map;
 public class Controller {
-    Account userAcc;
+    public Account userAcc;
     FirebaseAuth mAuth;
     DatabaseReference DBref;
     FirebaseDatabase userDB;
