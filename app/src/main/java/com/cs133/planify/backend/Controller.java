@@ -75,7 +75,7 @@ public class Controller {
     }
     // initializes the controller and connects to the database and is to be run every time that is not the first time
     public Boolean loadDatabase(){
-        userAcc= new Account(emailString,new Calendar("mainCalendar"));
+        userAcc= new Account(emailString);
 
         userDB= FirebaseDatabase.getInstance();
         DBref= userDB.getReference().child("Users").child(emailString);

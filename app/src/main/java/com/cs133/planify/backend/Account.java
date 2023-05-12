@@ -23,7 +23,7 @@ public class Account {
 
 
     }
-
+    //calls only on initailize for dataabse when account created
     public Account(String name, Calendar mainCalendar) {
         this.name = name;
         this.mainCalendar = mainCalendar;
@@ -35,7 +35,14 @@ public class Account {
         events= new ArrayList<>();
         events.add(new Event("example", 0, 0, "example description"));
 
-
+    }
+    //called whenever app loads
+    public Account(String name){
+        this.name = name;
+        this.mainCalendar = null;
+        sharedCalendars= new ArrayList<>();
+        tasks= new ArrayList<>();
+        events= new ArrayList<>();
 
     }
 
