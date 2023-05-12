@@ -3,12 +3,20 @@ package com.cs133.planify.frontend.calendar;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.cs133.planify.R;
+
+
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +33,10 @@ public class Calendar extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+//    private TextView monthYearText;
+//    private RecyclerView calendarRecyclerView;
+//    private LocalDate selectedDate;
 
     public Calendar() {
         // Required empty public constructor
@@ -55,7 +67,29 @@ public class Calendar extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+//        setContentView(R.layout.fragment_calendar);
+//        initWidgets();
+//        selectedDate = LocalDate.now();
+//        setMonthView();
     }
+
+//    private void initWidgets()
+//    {
+//        calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
+//        monthYearText = findViewById(R.id.monthYearTV);
+//
+//    }
+
+//    private void setMonthView()
+//    {
+//        monthYearText.setText(monthYearFromDate(selectedDate));
+//        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
+//
+//        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+//        calendarRecyclerView.setLayoutManager(layoutManager);
+//        calendarRecyclerView.setAdapter(calendarAdapter);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
