@@ -11,6 +11,8 @@ public class Account {
     private String name;
     private Calendar mainCalendar;
 
+    private ArrayList<Task> tasks;
+
 
 
 
@@ -25,6 +27,8 @@ public class Account {
         this.mainCalendar = mainCalendar;
         sharedCalendars= new ArrayList<>();
         sharedCalendars.add(new Calendar("ExampleCalendar"));
+        tasks= new ArrayList<>();
+
 
     }
 
@@ -40,6 +44,15 @@ public class Account {
         for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
             Calendar current= thisAccount.getCalendars().get(i);
             result.put(current.getId(),current);
+        }
+        return result;
+    }
+
+    public static Map<String, Object> tasksToMap(Account thisAccount){
+        Map<String, Object> result= new HashMap<>();
+        for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
+            Task current= thisAccount.getTasks().get(i);
+            result.put(current.ID,current);
         }
         return result;
     }
@@ -91,6 +104,26 @@ public class Account {
         sharedCalendars.remove(calendar);
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 
-
+    public void  deleteTask(String name){
+        for(Task x: tasks){
+            if(x.ID== name){
+                tasks.remove(x);
+            }
+        }
+    }
+    public Task searchTask(String name){
+        for(Task x: tasks){
+            if(x.ID== name){
+                return x;
+            }
+        }
+        return null;
+    }
+    public void addTask(Task x){
+        tasks.add(x);
+    }
 }
