@@ -50,21 +50,24 @@ public class Main extends AppCompatActivity {
 
             //switch to the corresponding fragment
             switch (id) {
-                case R.id.nav_calendar:
-                    //log view
-                    //load calendar fragment
-                    d("Main", "Calendar item clicked");
 
-                    //switch to calendar fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, calendarFragment).commit();
-                    break;
-                case R.id.nav_plan:
+                case R.id.nav_today:
                     //log view
-                    d("Main", "Plan item clicked");
+                    d("Main", "Today item clicked");
 
-                    //switch to plan fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, planFragment).commit();
+                    //switch to today fragment
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, todayFragment).commit();
                     break;
+
+
+                case R.id.nav_overview:
+                    //log view
+                    d("Main", "Overview item clicked");
+
+                    //switch to overview fragment
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, todayFragment).commit();
+                    break;
+
                 case R.id.nav_settings:
                     //log view
                     d("Main", "Settings item clicked");

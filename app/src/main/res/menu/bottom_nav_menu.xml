@@ -3,20 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_calendar"
-        android:title="Calendar"
-        android:icon="@color/material_dynamic_neutral50"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/nav_today"
         android:title="Today"
-        android:icon="@color/material_dynamic_primary50"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/nav_plan"
-        android:title="Plan"
         android:icon="@color/material_dynamic_primary50"
         app:showAsAction="ifRoom" />
 
