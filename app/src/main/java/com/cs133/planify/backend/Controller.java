@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import com.cs133.planify.frontend.login.Login;
 import com.cs133.planify.frontend.main.Main;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -65,6 +64,10 @@ public class Controller {
         DBref.updateChildren(Account.toMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("sharedCalendars");
         DBref.updateChildren(Account.calendartoMap(userAcc));
+        DBref= userDB.getReference().child("Users").child(emailString).child("tasks");
+        DBref.updateChildren(Account.tasksToMap(userAcc));
+        DBref= userDB.getReference().child("Users").child(emailString).child("Events");
+        DBref.updateChildren(Account.tasksToMap(userAcc));
         updateLocal();
 
        // for testing: share( new Calendar("test shared calendar"), "test7@gmail.com");
@@ -72,7 +75,7 @@ public class Controller {
     }
     // initializes the controller and connects to the database and is to be run every time that is not the first time
     public Boolean loadDatabase(){
-        userAcc= new Account(emailString,new Calendar("mainCalendar"));
+        userAcc= new Account(emailString);
 
         userDB= FirebaseDatabase.getInstance();
         DBref= userDB.getReference().child("Users").child(emailString);
@@ -87,8 +90,11 @@ public class Controller {
         DBref= userDB.getReference().child("Users").child(emailString);
         DBref.updateChildren(Account.toMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("sharedCalendars");
-
         DBref.updateChildren(Account.calendartoMap(userAcc));
+        DBref= userDB.getReference().child("Users").child(emailString).child("tasks");
+        DBref.updateChildren(Account.tasksToMap(userAcc));
+        DBref= userDB.getReference().child("Users").child(emailString).child("Events");
+        DBref.updateChildren(Account.tasksToMap(userAcc));
         updateLocal();
         return true;
     }
@@ -107,6 +113,25 @@ public class Controller {
                 for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("calendars").getChildren()) {
                     userAcc.addCalendar(child.getValue(Calendar.class));
                 }
+                for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("tasks").getChildren()) {
+                    try{
+                        userAcc.addTask(child.getValue(Task.class));
+                    }
+                    catch( Exception IE)
+                    {
+                        System.out.println(IE.getMessage());
+                    }
+                }
+                for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("events").getChildren()) {
+
+                    try{
+                        userAcc.addEvent(child.getValue(Event.class));
+                    }
+                    catch( Exception IE)
+                    {
+                        System.out.println(IE.getMessage());
+                    }
+                }
 
                     System.out.println("grabbing data success");
                 // ..
@@ -121,7 +146,7 @@ public class Controller {
         DBref.addValueEventListener(postListener);
     }
     // takes user email and a seleccted calnedar, will deposit a copy of that  calendar in the user email , if there is a calendar of the same id it will be overwritten
-    public boolean share( Calendar newCalendar, String email){
+    public boolean shareCalendar( Calendar newCalendar, String email){
         email = email.replace("@","");
         email = email.replace(".","");
       FirebaseDatabase mDB= FirebaseDatabase.getInstance();
@@ -130,6 +155,26 @@ public class Controller {
       System.out.println("Share Success");
       return true;
         }
+
+    public boolean shareTask(Task newTask, String email){
+        email = email.replace("@","");
+        email = email.replace(".","");
+        FirebaseDatabase mDB= FirebaseDatabase.getInstance();
+        DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("tasks").child(newTask.IDString);
+        mRef.setValue(newTask);
+        System.out.println("Share Success");
+        return true;
+    }
+
+    public boolean shareEvent(Event newEvent, String email){
+        email = email.replace("@","");
+        email = email.replace(".","");
+        FirebaseDatabase mDB= FirebaseDatabase.getInstance();
+        DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("tasks").child(newEvent.getIDString());
+        mRef.setValue(newEvent);
+        System.out.println("Share Success");
+        return true;
+    }
 
 
 
