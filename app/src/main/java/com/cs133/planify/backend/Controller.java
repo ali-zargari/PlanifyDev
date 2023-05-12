@@ -1,6 +1,7 @@
 package com.cs133.planify.backend;
 
 import android.content.Intent;
+import android.service.controls.Control;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ public class Controller {
 
     DataSnapshot snapshot;
     String URL;
-    String emailString;
+    public String emailString;
 
     Account ThisAccount;
     ArrayList AccountsList = new ArrayList<Account>();
@@ -52,14 +53,15 @@ public class Controller {
         this.ThisAccount= newAcc;
     }
     //intialize controller must be run the first time an account as created, will create a child in database with information on user Account
-    public Boolean initalizeDatabase(){
+    public static Boolean initalizeDatabase(Controller inputController){
+        String emailString= inputController.emailString;
         // uses mAuth to get user ID and creates a new mainCalendar object with ID empty calendar
         System.out.println(emailString);
-        userAcc= new Account(emailString,new Calendar("mainCalendar"));
+        Account userAcc= new Account(emailString,new Calendar("mainCalendar"));
         //intializes database reference
-        userDB= FirebaseDatabase.getInstance();
+        FirebaseDatabase userDB= FirebaseDatabase.getInstance();
 
-        DBref= userDB.getReference().child("Users").child(emailString);
+        DatabaseReference DBref= userDB.getReference().child("Users").child(emailString);
         // craetes map and uses it to initialize data locales
         DBref.updateChildren(Account.toMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("sharedCalendars");
@@ -68,26 +70,32 @@ public class Controller {
         DBref.updateChildren(Account.tasksToMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("Events");
         DBref.updateChildren(Account.tasksToMap(userAcc));
-        updateLocal();
+        inputController.setAccount(userAcc);
+        updateLocal(inputController);
 
        // for testing: share( new Calendar("test shared calendar"), "test7@gmail.com");
         return true;
     }
     // initializes the controller and connects to the database and is to be run every time that is not the first time
-    public Boolean loadDatabase(){
-        userAcc= new Account(emailString);
+    public static Boolean loadDatabase(Controller inputController){
+        String emailString= inputController.emailString;
 
-        userDB= FirebaseDatabase.getInstance();
-        DBref= userDB.getReference().child("Users").child(emailString);
-        updateLocal();
+        Account userAcc= new Account(emailString);
+        FirebaseDatabase userDB= FirebaseDatabase.getInstance();
+       DatabaseReference DBref= userDB.getReference().child("Users").child(emailString);
+       inputController.setAccount(userAcc);
+        updateLocal(inputController);
         //load database success
         return true;
     }
 
 
-    public Boolean updateDB(){
+    public static Boolean updateDB(Controller inputController){
         //updates all children values in database with current values in the calendar
-        DBref= userDB.getReference().child("Users").child(emailString);
+        Account userAcc= inputController.userAcc;
+        String emailString= inputController.emailString;
+        FirebaseDatabase userDB = FirebaseDatabase.getInstance();
+        DatabaseReference DBref= userDB.getReference().child("Users").child(emailString);
         DBref.updateChildren(Account.toMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("sharedCalendars");
         DBref.updateChildren(Account.calendartoMap(userAcc));
@@ -95,12 +103,15 @@ public class Controller {
         DBref.updateChildren(Account.tasksToMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("Events");
         DBref.updateChildren(Account.tasksToMap(userAcc));
-        updateLocal();
+        updateLocal(inputController);
         return true;
     }
 
-    public void updateLocal() {
+    public static void updateLocal(Controller inputController) {
+        String emailString = inputController.emailString;
+        Account userAcc= inputController.userAcc;
         ValueEventListener postListener = new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -143,7 +154,7 @@ public class Controller {
                 System.out.println("grabbing data failed");
             }
         };
-        DBref.addValueEventListener(postListener);
+        inputController.DBref.addValueEventListener(postListener);
     }
     // takes user email and a seleccted calnedar, will deposit a copy of that  calendar in the user email , if there is a calendar of the same id it will be overwritten
     public boolean shareCalendar( Calendar newCalendar, String email){
