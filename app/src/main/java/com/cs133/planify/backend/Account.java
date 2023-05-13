@@ -35,6 +35,11 @@ public class Account {
         events= new ArrayList<>();
         events.add(new Event("example", 0, 0, "example description"));
 
+        //populate only for testing purposes
+        testPopulate();
+        // comment out on final product
+
+
     }
     //called whenever app loads
     public Account(String name){
@@ -55,9 +60,8 @@ public class Account {
     }
     public static Map<String, Object> calendartoMap(Account thisAccount){
         Map<String, Object> result= new HashMap<>();
-        for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
-            Calendar current= thisAccount.getCalendars().get(i);
-            result.put(current.getId(),current);
+        for(Calendar x: thisAccount.getCalendars()){
+            result.put(x.getId(),x);
         }
         return result;
     }
@@ -67,9 +71,9 @@ public class Account {
         if(thisAccount.getTasks().isEmpty()){
             return result;
         }
-        for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
-            Task current= thisAccount.getTasks().get(i);
-            result.put(current.IDString,current);
+        for(Task x: thisAccount.getTasks()){
+
+            result.put(x.IDString,x);
         }
         return result;
     }
@@ -79,9 +83,9 @@ public class Account {
         if(thisAccount.getEvents().isEmpty()){
             return result;
         }
-        for(int i =0 ; i< thisAccount.getCalendars().size(); i++){
-            Event current= thisAccount.getEvents().get(i);
-            result.put(current.getIDString(),current);
+        for(Event x : thisAccount.getEvents()){
+
+            result.put(x.getIDString(),x);
         }
         return result;
     }
@@ -194,5 +198,17 @@ public class Account {
                 events.remove(x);
             }
         }
+    }
+    //populates events and tasks only for testing purposes
+    public void testPopulate(){
+        for( int i=0; i<10; i++){
+            String testString= ("testEvent"+i);
+            events.add(new Event(testString,1,1 ,"emptydesc"));
+        }
+        for( int i=0; i<10; i++){
+            String testString= ("testTask"+i);
+            tasks.add(new Task(testString,"emptyDesc"));
+        }
+
     }
 }
