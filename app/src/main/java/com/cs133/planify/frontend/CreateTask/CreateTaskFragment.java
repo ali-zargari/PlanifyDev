@@ -25,11 +25,12 @@ public class CreateTaskFragment extends Fragment {
 
 
     }
-
+    //take task and add to account
     public void addTaskFromUI(Task newTask) throws Exception{
         Globals.mController.userAcc.addTask(newTask);
         Globals.mController.updateDB();
     }
+    //takes task and shares to email
     public void shareTaskFromUI(Task newTask, String Email) throws Exception{
         Globals.mController.shareTask(newTask,Email);
         Globals.mController.updateDB();

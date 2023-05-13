@@ -25,15 +25,16 @@ public class CreateEventFragment extends Fragment{
 
 
         }
-
+        //takes event object and adds to accoutn
         public void addTaskFromUI(Event newEvent) throws Exception{
             Globals.mController.userAcc.addEvent(newEvent);
             Globals.mController.updateDB();
         }
+        //takes event object and shares it to the email
         public void shareTaskFromUI(Event newEvent, String Email) throws Exception{
             Globals.mController.shareEvent(newEvent,Email);
             Globals.mController.updateDB();
         }
     }
 
-}
+
