@@ -3,28 +3,28 @@ package com.cs133.planify.backend;
 public class Event {
     private String name;
     private String description;
-    private int start;
-    private int end;
+    private int month;
+    private int day;
     private boolean status;
 
     private String IDString;
 
-    public Event(String name, int start, int end, String description){
+    public Event(String name, int month, int day, String description){
         this.name= name;
-        this.start= start;
-        this.end= end;
+        this.month= month;
+        this.day= day;
         this.description = description;
         this.status=false;
-        IDString= (name+start+end+description);
+        IDString= (name+month+day+ ((int) (Math.random() * 100000)+1));
     }
 
-    public Event(String name, int start, int end, String description, boolean status){
+    public Event(String name, int month, int day, String description, boolean status){
         this.name= name;
-        this.start= start;
-        this.end= end;
+        this.month= month;
+        this.day= day;
         this.description = description;
         this.status = status;
-        IDString= (name+start+end+ ((int) (Math.random() * 100000)+1));
+        IDString= (name+month+day+ ((int) (Math.random() * 100000)+1));
     }
 
     public String getName() {
@@ -43,20 +43,20 @@ public class Event {
         this.description = description;
     }
 
-    public int getStart() {
-        return start;
+    public int getMonth() {
+        return month;
     }
 
-    public void setStart(int start) {
-        this.start = start;
+    public void setMonth(int start) {
+        this.month = start;
     }
 
-    public int getEnd() {
-        return end;
+    public int getDay() {
+        return day;
     }
 
-    public void setEnd(int end) {
-        this.end = end;
+    public void setDay(int end) {
+        this.day = day;
     }
 
     public boolean isStatus() {
