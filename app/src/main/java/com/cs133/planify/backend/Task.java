@@ -7,6 +7,7 @@ public class Task {
     Boolean Completion;
 
     String Name;
+    String Date;
 
     public Task(String NameString, String DescString){
         Name= NameString;
@@ -15,4 +16,19 @@ public class Task {
         Boolean Completion= false;
     }
 
+    public String getDescription() {
+        return Description;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public boolean getCompletion() {
+        return Completion;
+    }
 }
