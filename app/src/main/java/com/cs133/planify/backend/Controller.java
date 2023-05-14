@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 public class Controller {
     public Account userAcc;
+
     FirebaseAuth mAuth;
     DatabaseReference DBref;
     FirebaseDatabase userDB;
@@ -35,10 +36,12 @@ public class Controller {
     DataSnapshot snapshot;
     String URL;
     String emailString;
+    public String email;
 
     Account ThisAccount;
     ArrayList AccountsList = new ArrayList<Account>();
     public Controller( String email){
+        this.email= String.copyValueOf(email.toCharArray());
         emailString= email;
         emailString = emailString.replace("@","");
         emailString = emailString.replace(".","");
@@ -54,7 +57,7 @@ public class Controller {
     //intialize controller must be run the first time an account as created, will create a child in database with information on user Account
     public Boolean initalizeDatabase(){
         // uses mAuth to get user ID and creates a new mainCalendar object with ID empty calendar
-        System.out.println(emailString);
+        //System.out.println(emailString);
         userAcc= new Account(emailString,new Calendar("mainCalendar"));
         //intializes database reference
         userDB= FirebaseDatabase.getInstance();
@@ -70,7 +73,7 @@ public class Controller {
         DBref.updateChildren(Account.tasksToMap(userAcc));
         updateLocal();
 
-       // for testing: share( new Calendar("test shared calendar"), "test7@gmail.com");
+        // for testing: share( new Calendar("test shared calendar"), "test7@gmail.com");
         return true;
     }
     // initializes the controller and connects to the database and is to be run every time that is not the first time
@@ -133,7 +136,7 @@ public class Controller {
                     }
                 }
 
-                    System.out.println("grabbing data success");
+                System.out.println("grabbing data success");
                 // ..
             }
 
@@ -149,12 +152,12 @@ public class Controller {
     public boolean shareCalendar( Calendar newCalendar, String email){
         email = email.replace("@","");
         email = email.replace(".","");
-      FirebaseDatabase mDB= FirebaseDatabase.getInstance();
-      DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("sharedCalendars").child(newCalendar.getId());
-      mRef.setValue(newCalendar);
-      System.out.println("Share Success");
-      return true;
-        }
+        FirebaseDatabase mDB= FirebaseDatabase.getInstance();
+        DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("sharedCalendars").child(newCalendar.getId());
+        mRef.setValue(newCalendar);
+        System.out.println("Share Success");
+        return true;
+    }
 
     public boolean shareTask(Task newTask, String email){
         email = email.replace("@","");

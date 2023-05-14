@@ -199,15 +199,17 @@ public class Account {
             }
         }
     }
+
     //populates events and tasks only for testing purposes
     public void testPopulate(){
         for( int i=0; i<10; i++){
             String testString= ("testEvent"+i);
-            events.add(new Event(testString,1,1 ,"emptydesc"));
+            events.add(new Event(testString,1,1 ,"empty Desc"));
         }
+
         for( int i=0; i<10; i++){
             String testString= ("testTask"+i);
-            tasks.add(new Task(testString,"emptyDesc"));
+            tasks.add(new Task(testString,"empty Desc"));
         }
 
     }

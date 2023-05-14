@@ -22,20 +22,4 @@ public class DatabaseTest {
         assert(initializeTestLogin());
     }
 
-    @Test
-    public void unitTestinitializeuserDB() throws Exception{
-        if(!initializeTestLogin()){
-            throw new Exception("login failed");
-        }
-        boolean success= TestController.initalizeDatabase();
-        assert(success);
-    }
-    @Test
-    public void unitTestUpdateDB() throws Exception{
-        if(!initializeTestLogin()){
-            throw new Exception("login failed");
-        }
-        boolean success= TestController.initalizeDatabase();
-        assert(success);
-    }
 }

@@ -62,8 +62,10 @@ public class Login extends AppCompatActivity {
                             System.out.println(email);
                             Controller mController= new Controller(email);
                             mController.loadDatabase();
+                            //Controller.loadDatabase(mController);
                             Globals.setController(mController);
                             Intent intent = new Intent(Login.this, Main.class);
+                            //intent.putExtra("controller", mController);
                             startActivity(intent);
                             finish();
                         } else {

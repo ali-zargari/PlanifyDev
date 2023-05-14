@@ -8,9 +8,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.cs133.planify.frontend.login.Login;
+import com.cs133.planify.frontend.overview.OverviewFragment;
 import com.cs133.planify.frontend.register.Register;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-
-
 
 
         //find button with id login_button
@@ -48,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        // Handle the click event of the overview tab
+//        Button overviewTab = findViewById(R.id.overview_tab); // replace R.id.overview_tab with the actual ID of your overview tab button or view.
+//        overviewTab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Display the OverviewFragment when the overview tab is clicked
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.navigation_overview, new OverviewFragment());
+//                transaction.commit();
+//            }
+//        });
 
     }
 
