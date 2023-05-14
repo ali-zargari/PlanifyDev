@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,31 +20,41 @@ import com.cs133.planify.backend.Task;
 import java.util.ArrayList;
 
 public class OverviewFragment extends Fragment {
-    private RecyclerView tasksRecyclerView;
-    private TaskAdapter taskAdapter;
-    private ArrayList<Task> taskList;
-
     Controller mController;
-    ArrayList<Event> EventList;
+    ArrayList<Task> taskList;
+    ArrayList<Event> eventList;
+    private RecyclerView tasksRecyclerView;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mController = Globals.getController();
-        EventList = mController.userAcc.getEvents();
+        Controller mController= Globals.getController();
+        eventList = mController.userAcc.getEvents();
         taskList = mController.userAcc.getTasks();
+
+
+        //logcat test
+        System.out.println("OverviewFragment: onCreate: taskList: " + taskList);
+        System.out.println("OverviewFragment: onCreate: eventList: " + eventList);
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
+        View view = inflater.inflate(R.layout.fragment_overview, container, false);
 
-        tasksRecyclerView = rootView.findViewById(R.id.tasksRecyclerView);
+        System.out.println("OverviewFragment: onCreateView: taskList: " + taskList);
+
+        tasksRecyclerView = view.findViewById(R.id.recyclerview);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        taskAdapter = new TaskAdapter(taskList);
+        TaskAdapter taskAdapter = new TaskAdapter(taskList);
         tasksRecyclerView.setAdapter(taskAdapter);
 
-        return rootView;
+        return view;
     }
+
 }

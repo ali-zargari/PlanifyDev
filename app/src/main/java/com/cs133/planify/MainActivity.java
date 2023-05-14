@@ -23,11 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        // Display the OverviewFragment initially
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.navigation_overview, new OverviewFragment());
-        transaction.commit();
-
 
         //find button with id login_button
         Button login_btn = findViewById(R.id.have_account_button);

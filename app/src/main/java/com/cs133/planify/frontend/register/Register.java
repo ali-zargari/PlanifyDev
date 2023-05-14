@@ -71,6 +71,7 @@ public class Register extends AppCompatActivity {
 
                                         Controller mController= new Controller(email);
                                         mController.initalizeDatabase();
+                                        //Controller.initalizeDatabase(mController);
 
                                         // Convert userAccount object to a map
                                         Map<String, Object> userMap = new HashMap<>();

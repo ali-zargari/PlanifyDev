@@ -52,13 +52,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             taskCheckBox = itemView.findViewById(R.id.todoCheckBox);
             taskDescriptionTextView = itemView.findViewById(R.id.todoText);
             taskDateTextView = itemView.findViewById(R.id.todoDate);
+            taskNameTextView = itemView.findViewById(R.id.todoText); // replace this with the actual id of the TextView in your layout file
         }
 
+
         public void bindTask(Task task) {
-            taskDescriptionTextView.setText(task.getDescription());
-            taskDateTextView.setText(task.getDate());
-            taskCheckBox.setChecked(task.getCompletion());
-            taskNameTextView.setText(task.getName());
+            if(task != null) {
+                taskDescriptionTextView.setText(task.getDescription());
+                taskDateTextView.setText(task.getDate());
+                taskCheckBox.setChecked(task.getCompletion());
+                taskNameTextView.setText(task.getName());
+            }
 
         }
     }
