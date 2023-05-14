@@ -36,7 +36,7 @@ public class Account {
         events.add(new Event("example", 0, 0, "example description"));
 
         //populate only for testing purposes
-        testPopulate();
+
         // comment out on final product
 
 
@@ -73,7 +73,7 @@ public class Account {
         }
         for(Task x: thisAccount.getTasks()){
 
-            result.put(x.IDString,x);
+            result.put(x.DBIdentifier,x);
         }
         return result;
     }
@@ -143,16 +143,16 @@ public class Account {
 
     public void deleteTask(String name){
         for(Task x: tasks){
-            if(x.IDString== name){
+            if(x.DBIdentifier== name){
                 tasks.remove(x);
             }
         }
     }
 
     public boolean addTask(Task x) throws Exception{
-        name= x.IDString;
+        name= x.DBIdentifier;
         for(Task y :tasks){
-            if(y.IDString== name){
+            if(y.DBIdentifier== name){
                 throw new Exception("task with that name already exists");
             }
         }
@@ -163,7 +163,7 @@ public class Account {
 
     public Task searchTask(String name){
         for(Task x: tasks){
-            if(x.IDString== name){
+            if(x.DBIdentifier== name){
                 return x;
             }
         }

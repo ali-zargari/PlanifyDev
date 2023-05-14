@@ -42,7 +42,6 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mController.userAcc.testPopulate();
 
         //Account account = mController.userAcc;
         d("Main", "Account: " + mController.email);

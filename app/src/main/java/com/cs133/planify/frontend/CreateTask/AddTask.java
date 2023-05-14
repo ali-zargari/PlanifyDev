@@ -14,7 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.cs133.planify.R;
 import com.cs133.planify.backend.Controller;
+import com.cs133.planify.backend.Event;
 import com.cs133.planify.backend.Globals;
+import com.cs133.planify.backend.Task;
 
 public class AddTask extends Fragment {
 
@@ -69,9 +71,41 @@ public class AddTask extends Fragment {
                 System.out.println("share: " + share);
 
                 //TODO: Send to Backend
+                Task newTask= new Task(taskName,taskDay,taskMonth,taskDescription);
+
+                try {
+                    addTaskFromUI(newTask);
+                    System.out.println("add task succeeded");
+                } catch (Exception e) {
+                    throw new RuntimeException("add task failed");
+                }
+                if(shareCheckBox.isChecked()== true){
+                    try {
+                        shareTaskFromUI(newTask, shareWithEmail);
+                    }
+                    catch (Exception e) {
+                        throw new RuntimeException("add task failed");
+                    }
+                }
+
+
             }
         });
 
+
         return view;
+    }
+
+    public void addTaskFromUI(Task newTask) throws Exception{
+        Globals.mController.userAcc.addTask(newTask);
+        Globals.mController.updateDB();
+        Globals.mController.updateLocal();
+
+    }
+    //takes event object and shares it to the email
+    public void shareTaskFromUI(Task newTask, String Email) throws Exception{
+        Globals.mController.shareTask(newTask,Email);
+        Globals.mController.updateDB();
+        Globals.mController.updateLocal();
     }
 }
