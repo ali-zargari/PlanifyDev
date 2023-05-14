@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".frontend.CreateTask.AddTask">
+
+    <EditText
+        android:id="@+id/taskNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_name_hint"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/taskDescriptionInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_description_hint"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/taskDayInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_day_hint"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/taskMonthInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_month_hint"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/shareWithEmailInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/share_with_email_hint"
+        android:inputType="textEmailAddress" />
+
+    <CheckBox
+        android:id="@+id/shareCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/share_checkbox_text" />
+
+    <Button
+        android:id="@+id/submitTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_task_button_text" />
+
+</LinearLayout>

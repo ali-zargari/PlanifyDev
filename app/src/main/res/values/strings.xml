@@ -17,4 +17,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="forward"><![CDATA[->]]></string>
+    <string name="task_name_hint">Enter task name</string>
+    <string name="task_description_hint">Enter task description</string>
+    <string name="task_day_hint">Enter day</string>
+    <string name="task_month_hint">Enter month</string>
+    <string name="share_with_email_hint">Enter email to share with</string>
+    <string name="share_checkbox_text">Share task with entered email</string>
+    <string name="submit_task_button_text">Submit Task</string>
 </resources>
