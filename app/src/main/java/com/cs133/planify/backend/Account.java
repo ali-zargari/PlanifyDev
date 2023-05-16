@@ -211,6 +211,20 @@ public class Account {
             String testString= ("testTask"+i);
             tasks.add(new Task(testString,"empty Desc"));
         }
+    }
+    public void markTaskasTrue( Task current){
+        for(Task x: tasks){
+            if(x.equals(current)){
+                x.setCompletion(true);
+            }
+        }
+    }
 
+    public void purgeCompleted(){
+        for(Task x: tasks){
+            if(x.Completion== true){
+                tasks.remove(x);
+            }
+        }
     }
 }
