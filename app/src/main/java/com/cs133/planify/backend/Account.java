@@ -1,9 +1,12 @@
 
 package com.cs133.planify.backend;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.LocalDate;
 
 public class Account {
     public ArrayList<Calendar> sharedCalendars= new ArrayList<Calendar>();
@@ -227,4 +230,26 @@ public class Account {
             }
         }
     }
+
+    public void purgeDatePast(){
+        SimpleDateFormat dateformatter = new SimpleDateFormat("dd");
+        Date date = new Date();
+        int todayDate= Integer.valueOf(dateformatter.format(date));
+        SimpleDateFormat monthformatter = new SimpleDateFormat("MM");
+        int todayMonth = Integer.valueOf(monthformatter.format(date));
+
+        for(Task x: tasks){
+            int taskDate = x.day;
+            int taskMonth = x.month;
+            if( taskMonth< todayMonth){
+                tasks.remove(x);
+            }
+            if (taskMonth == todayMonth ) {
+                if(taskDate< todayDate){
+                    tasks.remove(x);
+                }
+            }
+        }
+    }
 }
+

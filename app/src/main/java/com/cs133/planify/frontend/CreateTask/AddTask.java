@@ -76,7 +76,7 @@ public class AddTask extends Fragment {
                 try {
                     addTaskFromUI(newTask);
                     System.out.println("add task succeeded");
-                } catch (Exception e) {
+                } catch (Exception e){
                     throw new RuntimeException("add task failed");
                 }
                 if(shareCheckBox.isChecked()== true){

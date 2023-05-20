@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.cs133.planify.frontend.login.Login;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.FirebaseError;
+
+import java.util.Date;
 import java.util.List;
 import com.google.firebase.database.GenericTypeIndicator;
 
@@ -86,9 +89,6 @@ public class Controller {
         userDB= FirebaseDatabase.getInstance();
         DBref= userDB.getReference().child("Users").child(emailString);
         updateLocal();
-        for(Task x : userAcc.getTasks()){
-            System.out.println(x.getIDString());
-        }
         //load database success
         return true;
     }
@@ -109,6 +109,12 @@ public class Controller {
     }
 
     public void updateLocal() {
+        SimpleDateFormat dateformatter = new SimpleDateFormat("dd");
+        Date date = new Date();
+        int todayDate= Integer.valueOf(dateformatter.format(date));
+        SimpleDateFormat monthformatter = new SimpleDateFormat("MM");
+        int todayMonth = Integer.valueOf(monthformatter.format(date));
+
         DBref= userDB.getReference();
         DBref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -121,8 +127,12 @@ public class Controller {
 
                 for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("tasks").getChildren()) {
                     try{
-                        userAcc.addTask(child.getValue(Task.class));
-                        System.out.println("add task success");
+                        Task current= child.getValue(Task.class);
+                        if (current.getMonth()> todayMonth || (current.getMonth()==todayMonth && current.getDay()>=todayDate)){
+                            userAcc.addTask(current);
+                            System.out.println("add task success");
+                        }
+
                     }
                     catch( Exception IE)
                     {
@@ -143,7 +153,8 @@ public class Controller {
         });
 
 
-            }
+
+    }
 
 
     // takes user email and a seleccted calnedar, will deposit a copy of that  calendar in the user email , if there is a calendar of the same id it will be overwritten
