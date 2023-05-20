@@ -15,6 +15,7 @@ import com.cs133.planify.R;
 import com.cs133.planify.backend.Account;
 import com.cs133.planify.backend.Controller;
 import com.cs133.planify.backend.Globals;
+import com.cs133.planify.frontend.CreateTask.AddTask;
 import com.cs133.planify.frontend.calendar.Calendar;
 import com.cs133.planify.frontend.login.Login;
 import com.cs133.planify.frontend.overview.OverviewFragment;
@@ -33,7 +34,7 @@ public class Main extends AppCompatActivity {
     PlanFragment planFragment = new PlanFragment();
     OverviewFragment overviewFragment = new OverviewFragment();
     TodayFragment todayFragment = new TodayFragment();
-    SettingsFragment settingsFragment = new SettingsFragment();
+    AddTask addTaskFragment = new AddTask();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +42,9 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mController.userAcc.testPopulate();
 
-        //account
         //Account account = mController.userAcc;
         d("Main", "Account: " + mController.email);
-
-        //account.testPopulate();
 
         for(int i = 0; i < mController.userAcc.getEvents().size(); i++) {
             d("Main", "Event " + i + ": " + mController.userAcc.getEvents().get(i).getName());
@@ -97,7 +94,7 @@ public class Main extends AppCompatActivity {
                     d("Main", "Settings item clicked");
 
                     //switch to settings fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, settingsFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, addTaskFragment).commit();
                     break;
 
             }

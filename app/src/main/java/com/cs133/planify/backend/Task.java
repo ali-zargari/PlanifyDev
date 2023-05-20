@@ -1,7 +1,7 @@
 package com.cs133.planify.backend;
 
 public class Task {
-    public String IDString;
+    public String DBIdentifier;
     String Description;
 
     Boolean Completion;
@@ -12,14 +12,25 @@ public class Task {
 
     public Task(String NameString, String DescString){
         Name= NameString;
-        IDString=( Name+ ((int) (Math.random() * 100000) + 1));
+        DBIdentifier=( Name+ ((int) (Math.random() * 100000) + 1));
         Description= DescString;
         Completion= false;
+    }
+    public Task(){
+
     }
 
     public Task(String NameString, int day, int month, String DescString){
         Name= NameString;
-        IDString=( Name+ ((int) (Math.random() * 100000) + 1));
+        DBIdentifier=( Name+ ((int) (Math.random() * 100000) + 1));
+        Description= DescString;
+        Completion= false;
+        this.month= month;
+        this.day= day;
+    }
+    public Task(String NameString, int day, int month, String DescString,String DBIndentifier){
+        Name= NameString;
+        DBIdentifier=( DBIdentifier);
         Description= DescString;
         Completion= false;
         this.month= month;
@@ -31,11 +42,11 @@ public class Task {
     }
 
     public String getIDString() {
-        return IDString;
+        return DBIdentifier;
     }
 
     public void setIDString(String IDString) {
-        this.IDString = IDString;
+        this.DBIdentifier = IDString;
     }
 
     public void setDescription(String description) {

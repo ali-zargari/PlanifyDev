@@ -12,8 +12,11 @@
         android:theme="@style/Theme.Planify"
         tools:targetApi="31">
         <activity
+            android:name=".AddTask"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".frontend.main.Main"
             android:exported="false"
@@ -25,9 +28,9 @@
         <activity android:name=".frontend.register.Register" />
         <activity
             android:name=".frontend.splashscreen.SplashActivity"
-            android:theme="@style/Theme.Design.NoActionBar"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,9 +1,12 @@
 
 package com.cs133.planify.backend;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.LocalDate;
 
 public class Account {
     public ArrayList<Calendar> sharedCalendars= new ArrayList<Calendar>();
@@ -36,7 +39,7 @@ public class Account {
         events.add(new Event("example", 0, 0, "example description"));
 
         //populate only for testing purposes
-        testPopulate();
+
         // comment out on final product
 
 
@@ -73,7 +76,7 @@ public class Account {
         }
         for(Task x: thisAccount.getTasks()){
 
-            result.put(x.IDString,x);
+            result.put(x.DBIdentifier,x);
         }
         return result;
     }
@@ -143,16 +146,16 @@ public class Account {
 
     public void deleteTask(String name){
         for(Task x: tasks){
-            if(x.IDString== name){
+            if(x.DBIdentifier== name){
                 tasks.remove(x);
             }
         }
     }
 
     public boolean addTask(Task x) throws Exception{
-        name= x.IDString;
+        name= x.DBIdentifier;
         for(Task y :tasks){
-            if(y.IDString== name){
+            if(y.DBIdentifier== name){
                 throw new Exception("task with that name already exists");
             }
         }
@@ -163,7 +166,7 @@ public class Account {
 
     public Task searchTask(String name){
         for(Task x: tasks){
-            if(x.IDString== name){
+            if(x.DBIdentifier== name){
                 return x;
             }
         }
@@ -211,6 +214,42 @@ public class Account {
             String testString= ("testTask"+i);
             tasks.add(new Task(testString,"empty Desc"));
         }
+    }
+    public void markTaskasTrue( Task current){
+        for(Task x: tasks){
+            if(x.equals(current)){
+                x.setCompletion(true);
+            }
+        }
+    }
 
+    public void purgeCompleted(){
+        for(Task x: tasks){
+            if(x.Completion== true){
+                tasks.remove(x);
+            }
+        }
+    }
+
+    public void purgeDatePast(){
+        SimpleDateFormat dateformatter = new SimpleDateFormat("dd");
+        Date date = new Date();
+        int todayDate= Integer.valueOf(dateformatter.format(date));
+        SimpleDateFormat monthformatter = new SimpleDateFormat("MM");
+        int todayMonth = Integer.valueOf(monthformatter.format(date));
+
+        for(Task x: tasks){
+            int taskDate = x.day;
+            int taskMonth = x.month;
+            if( taskMonth< todayMonth){
+                tasks.remove(x);
+            }
+            if (taskMonth == todayMonth ) {
+                if(taskDate< todayDate){
+                    tasks.remove(x);
+                }
+            }
+        }
     }
 }
+

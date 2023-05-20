@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.cs133.planify.frontend.login.Login;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.FirebaseError;
+
+import java.util.Date;
 import java.util.List;
 import com.google.firebase.database.GenericTypeIndicator;
 
@@ -72,6 +75,9 @@ public class Controller {
         DBref= userDB.getReference().child("Users").child(emailString).child("Events");
         DBref.updateChildren(Account.tasksToMap(userAcc));
         updateLocal();
+        for(Task x : userAcc.getTasks()){
+            System.out.println(x.getIDString());
+        }
 
         // for testing: share( new Calendar("test shared calendar"), "test7@gmail.com");
         return true;
@@ -103,51 +109,54 @@ public class Controller {
     }
 
     public void updateLocal() {
-        ValueEventListener postListener = new ValueEventListener() {
+        SimpleDateFormat dateformatter = new SimpleDateFormat("dd");
+        Date date = new Date();
+        int todayDate= Integer.valueOf(dateformatter.format(date));
+        SimpleDateFormat monthformatter = new SimpleDateFormat("MM");
+        int todayMonth = Integer.valueOf(monthformatter.format(date));
+
+        DBref= userDB.getReference();
+        DBref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 Calendar mainCalendar = dataSnapshot.child("Users").child(emailString).child("Calendar").getValue( Calendar.class);
                 userAcc.setMainCalendar(mainCalendar);
 
                 String name = dataSnapshot.child("Users").child(emailString).child("name").getValue( String.class);
                 userAcc.setMainCalendar(mainCalendar);
 
-                for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("calendars").getChildren()) {
-                    userAcc.addCalendar(child.getValue(Calendar.class));
-                }
                 for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("tasks").getChildren()) {
                     try{
-                        userAcc.addTask(child.getValue(Task.class));
+                        Task current= child.getValue(Task.class);
+                        if (current.getMonth()> todayMonth || (current.getMonth()==todayMonth && current.getDay()>=todayDate)){
+                            userAcc.addTask(current);
+                            System.out.println("add task success");
+                        }
+
                     }
                     catch( Exception IE)
                     {
                         System.out.println(IE.getMessage());
                     }
                 }
-                for (DataSnapshot child : dataSnapshot.child("Users").child(emailString).child("events").getChildren()) {
-
-                    try{
-                        userAcc.addEvent(child.getValue(Event.class));
-                    }
-                    catch( Exception IE)
-                    {
-                        System.out.println(IE.getMessage());
-                    }
+                for(Task x :userAcc.getTasks()) {
+                    System.out.print(x.getIDString());
                 }
-
                 System.out.println("grabbing data success");
                 // ..
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                System.out.println("grabbing data failed");
+                // ...
             }
-        };
-        DBref.addValueEventListener(postListener);
+        });
+
+
+
     }
+
+
     // takes user email and a seleccted calnedar, will deposit a copy of that  calendar in the user email , if there is a calendar of the same id it will be overwritten
     public boolean shareCalendar( Calendar newCalendar, String email){
         email = email.replace("@","");
@@ -163,7 +172,7 @@ public class Controller {
         email = email.replace("@","");
         email = email.replace(".","");
         FirebaseDatabase mDB= FirebaseDatabase.getInstance();
-        DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("tasks").child(newTask.IDString);
+        DatabaseReference mRef = mDB.getReference().child("Users").child(email).child("tasks").child(newTask.DBIdentifier);
         mRef.setValue(newTask);
         System.out.println("Share Success");
         return true;
@@ -177,6 +186,11 @@ public class Controller {
         mRef.setValue(newEvent);
         System.out.println("Share Success");
         return true;
+    }
+    public static void Main(String []Args){
+        Controller mController= new Controller("test26@gmail.com");
+        mController.loadDatabase();
+        System.out.println(mController.userAcc.getTasks());
     }
 
 

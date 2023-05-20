@@ -57,4 +57,11 @@ public class OverviewFragment extends Fragment {
         return view;
     }
 
+    public void markTaskCompleteUI(Task newTask){
+        Globals.mController.userAcc.markTaskasTrue(newTask);
+        //uncomment below function for it to automatically remove all tasks when marked as true
+        //Globals.mController.userAcc.purgeCompleted();
+        Globals.mController.updateDB();
+        Globals.mController.updateLocal();
+    }
 }
