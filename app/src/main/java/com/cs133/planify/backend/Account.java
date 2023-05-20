@@ -61,14 +61,7 @@ public class Account {
 
         return result;
     }
-    public static Map<String, Object> calendartoMap(Account thisAccount){
-        Map<String, Object> result= new HashMap<>();
-        for(Calendar x: thisAccount.getCalendars()){
-            result.put(x.getId(),x);
-        }
-        return result;
-    }
-
+    // converts all tasks in account to map for usage
     public static Map<String, Object> tasksToMap(Account thisAccount){
         Map<String, Object> result= new HashMap<>();
         if(thisAccount.getTasks().isEmpty()){
@@ -222,7 +215,7 @@ public class Account {
             }
         }
     }
-
+    //purges complete tasks
     public void purgeCompleted(){
         for(Task x: tasks){
             if(x.Completion== true){
@@ -230,7 +223,7 @@ public class Account {
             }
         }
     }
-
+    // purges tasks wtih dates past
     public void purgeDatePast(){
         SimpleDateFormat dateformatter = new SimpleDateFormat("dd");
         Date date = new Date();

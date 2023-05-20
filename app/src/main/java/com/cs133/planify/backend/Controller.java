@@ -58,6 +58,7 @@ public class Controller {
         this.ThisAccount= newAcc;
     }
     //intialize controller must be run the first time an account as created, will create a child in database with information on user Account
+    // initializes structure of user database on user side
     public Boolean initalizeDatabase(){
         // uses mAuth to get user ID and creates a new mainCalendar object with ID empty calendar
         //System.out.println(emailString);
@@ -68,8 +69,6 @@ public class Controller {
         DBref= userDB.getReference().child("Users").child(emailString);
         // craetes map and uses it to initialize data locales
         DBref.updateChildren(Account.toMap(userAcc));
-        DBref= userDB.getReference().child("Users").child(emailString).child("sharedCalendars");
-        DBref.updateChildren(Account.calendartoMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("tasks");
         DBref.updateChildren(Account.tasksToMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("Events");
@@ -83,6 +82,7 @@ public class Controller {
         return true;
     }
     // initializes the controller and connects to the database and is to be run every time that is not the first time
+    // pulls values from user location in database to local side
     public Boolean loadDatabase(){
         userAcc= new Account(emailString);
 
@@ -93,13 +93,10 @@ public class Controller {
         return true;
     }
 
-
+    // sets address to users location in database and uploads with all the current values on local side
     public Boolean updateDB(){
-        //updates all children values in database with current values in the calendar
         DBref= userDB.getReference().child("Users").child(emailString);
         DBref.updateChildren(Account.toMap(userAcc));
-        DBref= userDB.getReference().child("Users").child(emailString).child("sharedCalendars");
-        DBref.updateChildren(Account.calendartoMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("tasks");
         DBref.updateChildren(Account.tasksToMap(userAcc));
         DBref= userDB.getReference().child("Users").child(emailString).child("Events");
@@ -108,6 +105,8 @@ public class Controller {
         return true;
     }
 
+    //pulls information from the database and uploads it to local
+    // retreives databasesnapshot and uses pulls that information into userAcc class
     public void updateLocal() {
         SimpleDateFormat dateformatter = new SimpleDateFormat("dd");
         Date date = new Date();
