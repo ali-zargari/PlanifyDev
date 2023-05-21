@@ -87,6 +87,8 @@ public class AddTask extends Fragment {
                         throw new RuntimeException("add task failed");
                     }
                 }
+                mController.updateLocal();
+                mController.updateDB();
 
 
             }
