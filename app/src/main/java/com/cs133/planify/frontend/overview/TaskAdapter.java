@@ -61,7 +61,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 taskDescriptionTextView.setText(task.getDescription());
                 taskDateTextView.setText(task.getMonth() + "/" + task.getDay());
                 taskCheckBox.setChecked(task.getCompletion());
-                taskNameTextView.setText(task.getName());
+                taskCheckBox.setText(task.getName());
             }
 
         }
